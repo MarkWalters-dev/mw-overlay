@@ -80,3 +80,21 @@ priority = 50
 | Category | Package | Description |
 | :--- | :--- | :--- |
 | `dev-util` | `code-audit` | Unified multi-ecosystem CLI code auditor |
+| `app-portage` | `system-builder` | Gentoo build server/client with queueing and live emerge streaming |
+
+### system-builder
+
+Live (`9999`) ebuild tracking git — re-emerge to update:
+
+```bash
+sudo emerge app-portage/system-builder          # server + client
+```
+
+`USE=server` (on by default) installs `gb-server`, the systemd unit,
+and seeds `/etc/system-builder/config.toml`. Client machines want
+`gb-client` only:
+
+```bash
+echo "app-portage/system-builder -server" | sudo tee -a /etc/portage/package.use/system-builder
+sudo emerge app-portage/system-builder          # gb-client only
+```
